@@ -1,0 +1,7 @@
+FROM golang:1.20-alpine
+
+COPY dispatcher.go static ./
+RUN go build dispatcher.go
+CMD ["./dispatcher"]
+
+EXPOSE 80
