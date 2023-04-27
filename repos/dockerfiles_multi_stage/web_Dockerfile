@@ -4,4 +4,4 @@ COPY dispatcher.go static ./
 RUN go build dispatcher.go
 CMD ["./dispatcher"]
 
-EXPOSE 80
+EXPOSE 80 
