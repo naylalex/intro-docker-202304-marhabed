@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  db:
+    build: 
+      context: ./wordsmith/db/
+      dockerfile: Dockerfile
+  web:
+    build:
+      context: ./wordsmith/web/
+      dockerfile: Dockerfile
+  words:
+    build:
+      context: ./wordsmith/words/
+      dockerfile: Dockerfile

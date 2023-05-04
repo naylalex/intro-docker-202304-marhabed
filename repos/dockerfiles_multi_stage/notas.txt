@@ -1,0 +1,47 @@
+web     latest  1346d9ca2309   2 hours ago     847MB (10 layers)
+words   latest  a848b89dbbdb   2 hours ago     856MB (6 layers)
+db      latest  2e54a48a2fcd   2 hours ago     376MB (15 layers)
+
+
+WORDS
+Al correr en una línea los comandos RUN en words:
+"RUN apt-get update && apt-get install -y maven openjdk-8-jdk && mvn verify"
+No bajó ningún MB el peso:
+
+words   latest  f8ff8b6003b5   46 seconds ago   856MB
+
+Sin embargo, si vemos menos capas:
+"Layers": [
+                "sha256:b93c1bd012ab8fda60f5b4f5906bf244586e0e3292d84571d3abb56472248466",
+                "sha256:6a14d27d2ac21a32ac1243dfdbbeef6619493af70d4cd270648631ae9fe33d88",
+                "sha256:a95d166fdba6ceb77f40bbddfe03f3f82d935b3e729ae58d2239d01cec406a99",
+                "sha256:b9333ee1474a492928af977253ef75cbe57320b5af60932c0808068e086961ac"
+            ]
+
+Cambié la forma en la cual se estructura este words y bajó a 105MB:
+words2  latest           faf3df159f5b   3 minutes ago    105MB
+
+Pero no lo tomo como válido pq al momento de correr el jar, me truena:
+
+$ docker run -ti -p 8080:8080 words2
+Exception in thread "main" java.lang.ClassNotFoundException: org.postgresql.Driver
+
+
+WEB
+
+Con web hice dos cosas:
+- Lo cambié a Alpine
+- Puse inline el copy
+
+web latest   df5186773096   52 seconds ago   323MB
+
+De todas formas, no cambiaron mucho las Layers:
+
+ "Layers": [
+                "sha256:f1417ff83b319fbdae6dd9cd6d8c9c88002dcd75ecf6ec201c8c6894681cf2b5",
+                "sha256:0403d7f628d3a8fdb9391f6e69ec62b4b1178fe944937a9dfc7e0d2e3f94b5af",
+                "sha256:84c52813c38c46de71c2c574eb7ea2935ee08b5acc508842672543aa4926696c",
+                "sha256:0ac507e9264360587bb106832b9317e72b46f1eec9c3b36daeef0adbca22e80c",
+                "sha256:d2f72aa6d5ff2d2c171750a0ef03e8e450ee310fb4e2c4cccdad11c234ea8a34",
+                "sha256:6ffed2a45daa2b9dc0ed89d8d4db333b9235476e40e78e9d97232669a3dc329d"
+            ]
